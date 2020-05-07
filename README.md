@@ -1,4 +1,4 @@
-# computer ex
+# computer experiment
 
 ## web
 > please use yarn or npm to start it  

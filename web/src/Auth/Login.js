@@ -30,7 +30,7 @@ class Login extends React.Component {
             })
             Store.set('Api_Token', response.data.token);
 
-            window.location.href = "/";
+            window.location.href = "/user/all";
         }).catch(error => {
             message.error((error.response && error.response.data.message) || "出错了哦");
             this.setState({

@@ -1,5 +1,4 @@
 import React from 'react';
-import img from '../resources/qkteam.png';
 import { Layout, Menu, Icon, Avatar } from 'antd';
 import { Link } from "react-router-dom";
 
@@ -60,7 +59,7 @@ class Sider extends React.Component {
         return (
             <Layout.Sider theme="dark" collapsible collapsed={ this.state.collapsed } onCollapse={ this.onCollapse }>
                 <div className="sider-logo" >
-                    <Avatar alt={ "avatar" } src={ this.props.avatar ? `http://localhost:8000/static/images/${this.props.avatar}` : img } className="sider-avatar"/>
+                    <Avatar alt={ "avatar" } src={ this.props.avatar ? `http://localhost:8888/static/images/${this.props.avatar}` : null } className="sider-avatar"/>
                     <span className="sider-username">{ this.state.collapsed ? "" : this.props.username }</span>
                 </div>
                 <Menu 

@@ -6,10 +6,6 @@ import { BrowserRouter as Router, Switch, Route, Redirect } from "react-router-d
 import { Layout } from "antd";
 
 class AppUnLogin extends React.Component {
-    constructor(props) {
-        super(props);
-    }
-
     render() {
         return (
             <Router>
@@ -18,7 +14,7 @@ class AppUnLogin extends React.Component {
                         <HeadMenu /> 
                         <Layout.Content>
                             <Switch>
-                                <Route exact path="/" component={ () => <Redirect to="tourist/" /> } />
+                                <Route exact path="/" component={ () => <Redirect to="/tourist" /> } />
                                 <Route path="/tourist" component={ TouristRouter } />
                             </Switch>
                         </Layout.Content>

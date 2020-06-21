@@ -24,9 +24,10 @@ class ArticleProcess extends React.Component {
             limit: 7,
             reviewed: this.state.reviewed,
         }
-        server.get(`article/self_list/${window.auth.id}`,{ params }).then(response => {
+        const url = window.auth.role.alias === 'admin' ? 'article/list/all' : `article/self_list/${window.auth.id}`
+        server.get(url,{ params }).then(response => {
             this.setState({
-                articles: response.data.data || [],
+                articles: response.data.articles || [],
                 total: response.data.total,
             })
         }).catch(error => {

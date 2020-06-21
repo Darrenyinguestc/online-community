@@ -4,8 +4,8 @@ import SiderMenu from './SiderMenu';
 import { Layout } from 'antd';
 import { BrowserRouter as Router, Route, Switch, Redirect } from "react-router-dom";
 import UserRouter from "../User";
-import AdminRouter from "../Admin";
-import Footer from "./Footer";
+// import AdminRouter from "../Admin";
+// import Footer from "./Footer";
 import server from '../server';
 
 class App extends React.Component {
@@ -19,7 +19,8 @@ class App extends React.Component {
 
   getNewInfo = () => {
     server.get("/auth/auth").then(response => {
-      window.auth = response.data;this.setState({
+      window.auth = response.data;
+      this.setState({
         username: window.auth.username,
         avatar: window.auth.avatar,
       })
@@ -27,7 +28,7 @@ class App extends React.Component {
   }
 
   render() {
-  
+    const { role } = window.auth;
     return (
       <Router>
           <Layout className="mainContainer">
@@ -35,9 +36,9 @@ class App extends React.Component {
             <Layout>
                 <Layout.Content>
                   <Switch>
-                    <Route exact path="/" component={ () => <Redirect to={ window.auth.role.alias} /> } />
+                    <Route exact path="/" component={ () => <Redirect to="/user" /> } />
                     <Route path="/user" component={props => <UserRouter {...props } getNewInfo={ this.getNewInfo }/> } />
-                    <Route path="/admin" component={ AdminRouter } />
+                    <Route path="/admin" component={ UserRouter } />
                     <Route component={ () => <Redirect to={ window.auth.role.alias }/> } />
                   </Switch>
                 </Layout.Content>

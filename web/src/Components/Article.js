@@ -90,7 +90,7 @@ class Article extends React.Component {
           title={
             <div>
               <Link
-                to={`/${window.auth.role.alias || "tourist"}/articleDetail/${
+                to={`/${(window.auth && "user") || "tourist"}/articleDetail/${
                   this.props.article.id
                 }`}
               >

@@ -2,6 +2,7 @@ import React from 'react';
 import logo from '../resources/qkteam.png';
 import { Menu, Input, Popover, Button } from 'antd';
 import LoginModal from "../Auth/LoginModal"
+import { Link } from 'react-router-dom';
 
 class HeadMenu extends React.Component {
     constructor(props) {
@@ -29,10 +30,10 @@ class HeadMenu extends React.Component {
 
     render() {
         const MenuItems = [
-            { key: 1, descritipn: "综合", url:"/" },
-            { key: 2, descritipn: "生活", url:"/life" },
-            { key: 3, descritipn: "科技", url:"/technology" },
-            { key: 4, descritipn: "学习", url:"/study" },
+            { key: 1, descritipn: "综合", url:"/tourist" },
+            { key: 2, descritipn: "生活", url:"/tourist/life" },
+            { key: 3, descritipn: "科技", url:"/tourist/technology" },
+            { key: 4, descritipn: "学习", url:"/tourist/study" },
         ];
         
         const popoverContent = (
@@ -49,7 +50,7 @@ class HeadMenu extends React.Component {
                     <Menu theme="dark" mode="horizontal" style={{ fontSize: "18px", display:"flex", alignItems: "center", flexGrow:1  }}>
                         { MenuItems.map(item => (
                             <Menu.Item key={ item.key } style={{ height:"80px", display:"flex", alignItems: "center" }}>
-                                { item.descritipn }
+                                <Link to={item.url}>{ item.descritipn }</Link>
                             </Menu.Item>
                         )) }
                     </Menu>

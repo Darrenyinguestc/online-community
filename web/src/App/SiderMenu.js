@@ -9,20 +9,20 @@ class Sider extends React.Component {
             collapsed: false,
         }
         this.menuItems = [
-            { key: `/${window.auth.role.alias}/info`, icon: "user", description: "个人中心" },
-            { key: `/${window.auth.role.alias}/friend`, icon: "team", description: "我的好友" },
-            { key: `/${window.auth.role.alias}/notification`, icon: "notification", description: "消息中心" },
+            { key: `/user/info`, icon: "user", description: "个人中心" },
+            // { key: `/user/friend`, icon: "team", description: "我的好友" },
+            // { key: `/user/notification`, icon: "notification", description: "消息中心" },
         ];
         this.articleSubMenuItems = [
-            { key: `/${window.auth.role.alias}/articleCreate`, description: "创作文章", visibility: "user"},
-            { key: `/${window.auth.role.alias}/articleProcess`, description: "审核进程", visibility: "user"},
+            { key: `/user/articleCreate`, description: "创作文章", visibility: "user"},
+            { key: `/user/articleProcess`, description: "审核进程", visibility: "user"},
         ];
         this.articleTypeMentItems = [
-            { key: `/${window.auth.role.alias}/all`, description: "全部" },
-            { key: `/${window.auth.role.alias}/comprehensive`, description: "综合" },
-            { key: `/${window.auth.role.alias}/study`, description: "学习" },
-            { key: `/${window.auth.role.alias}/life`, description: "生活" },
-            { key: `/${window.auth.role.alias}/technology`, description: "科技" }
+            { key: `/user/all`, description: "全部" },
+            { key: `/user/comprehensive`, description: "综合" },
+            { key: `/user/study`, description: "学习" },
+            { key: `/user/life`, description: "生活" },
+            { key: `/user/technology`, description: "科技" }
         ]
     }
 

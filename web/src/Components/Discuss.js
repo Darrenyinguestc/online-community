@@ -4,17 +4,15 @@ import BraftEditor from "braft-editor";
 import { Avatar, Button } from "antd";
 
 class Discuss extends React.Component {
-  // constructor(props) {
-  //   super(props);
-  // }
+
+
 
   render() {
-    console.log(window.auth.avatar);
     const controls = ["bold", "underline", "separator", "font-size", "italic"];
     return (
       <div style={{ display: "flex", direction: "row", marginTop: "30px" }}>
         <Avatar
-          src={`http://localhost:8888/static/images/${window.auth.avatar}`}
+          src={ `http://localhost:8888/static/images/${window.auth.avatar}` }
           style={{ margin: "20px" }}
         />
         <div style={{ flexGrow: 1, border: "solid" }}>
@@ -28,7 +26,7 @@ class Discuss extends React.Component {
             }}
             placeholder="快来分享你的想法吧"
           />
-          <Button type="primary">发表</Button>
+          <Button type="primary" >发表</Button>
         </div>
       </div>
     );

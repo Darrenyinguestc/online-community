@@ -1,9 +1,6 @@
 import React from "react";
 
 class Footer extends React.Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
         return (
@@ -15,7 +12,7 @@ class Footer extends React.Component {
                     <a></a> */}
                 </div>
                 <p>熙熙论坛Bustling ©2019</p>
-                <p>Powered by QKTEAM</p>
+                <p>Powered by GRY</p>
             </div>
             </div>
             

@@ -1,6 +1,6 @@
 import React from "react";
 import server from "../server";
-import { Card, Avatar, Button, Icon, Tag, Empty } from "antd";
+import { Card, Avatar, Button, Icon, Tag, Empty, Input, message } from "antd";
 import Discuss from "./Discuss";
 import img from "../resources/qkteam.png";
 
@@ -8,7 +8,7 @@ class ArticleDetail extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      article: null,
+      article: {},
       author: null,
       loading: true,
     };
@@ -31,11 +31,25 @@ class ArticleDetail extends React.Component {
       });
   }
 
+
+  logined() {
+    return window.auth;
+  } 
+
+  access(reviewed) {
+    const params = {
+      article_id: this.state.article.id,
+      reviewed,
+    }
+    server.post('/article/reviewed', params).then(() => {
+      message.success("审核完毕")
+    })
+  }
+
   render() {
     const InfoTitle = (
       <div>
         <span style={{ fontSize: "20px" }}>
-          {" "}
           {this.state.loading ? null : this.state.author.username}{" "}
         </span>
         {this.state.loading ? null : (
@@ -47,9 +61,6 @@ class ArticleDetail extends React.Component {
             )}
           </span>
         )}
-        <Button type="primary" style={{ float: "right" }}>
-          加好友
-        </Button>
       </div>
     );
 
@@ -59,7 +70,7 @@ class ArticleDetail extends React.Component {
           <div>
             <p>好友数</p>
             <p>
-              <strong>23</strong>
+              <strong>0</strong>
             </p>
           </div>
           <div
@@ -68,7 +79,7 @@ class ArticleDetail extends React.Component {
           <div>
             <p>作品数</p>
             <p>
-              <strong>223</strong>
+              <strong>3</strong>
             </p>
           </div>
         </div>
@@ -104,6 +115,7 @@ class ArticleDetail extends React.Component {
             description={InfoDescription}
           ></Card.Meta>
         </Card>
+
         <div style={{ width: "70%" }}>
           <Card className="articleDetail-article">
             <Card.Meta
@@ -154,10 +166,21 @@ class ArticleDetail extends React.Component {
               </p>
             </div>
           </Card>
-          <Card className="articleDetail-comment">
-            <Empty description={<span>抢沙发咯！！！</span>} />
-            <Discuss />
-          </Card>
+          {
+            this.logined() && (
+              (!this.state.article.reviewed && window.auth.role.alias === "admin") ?   
+              <Card title="审核" style={{margin: 20}}>
+                <Input.TextArea></Input.TextArea>
+                <div style={{margin: 10}}>
+                  <Button type="primary" style={{marginRight: 20}} onClick={() => this.access(1)}>通过</Button>
+                  <Button type="danger" onClick={() => this.access(-1)}>不通过</Button>
+                </div>
+              </Card>     :     <Card className="articleDetail-comment">
+              <Empty description={<span>抢沙发咯！！！</span>} />
+              <Discuss />
+              </Card> 
+            )
+          }
         </div>
       </div>
     );

@@ -51,7 +51,6 @@ class ShowBoard extends React.Component {
             "life": "生活",
             "technology": "科技",
         }
-
         return(
             <div className="showBoard-container">
                 <Card 

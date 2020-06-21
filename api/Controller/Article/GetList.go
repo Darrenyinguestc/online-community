@@ -66,13 +66,8 @@ func GetList(c *gin.Context)  {
 	db := Orm.GetDB()
 
 	_user, _ := c.Get("user")
-	user := _user.(Model.User)
 	if _user == nil {
 		reviewed = 1
-	} else {
-		if user.RoleId != 2 {
-			reviewed = 1
-		}
 	}
 
 	if articleType != "all" {

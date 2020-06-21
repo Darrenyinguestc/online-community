@@ -25,7 +25,7 @@ import (
 
 type ReviewedArticleValidate struct {
 	ArticleId string `json:"article_id" binding:"required"`
-	Reviewed  bool 	 `json:"reviewed"`
+	Reviewed  int 	 `json:"reviewed" binding:"required"`
 	Reason    string `json:"reason"`
 }
 
@@ -37,7 +37,7 @@ func ReviewedArticle(c *gin.Context) {
 	}
 	user := _user.(Model.User)
 	db := Orm.GetDB()
-	if user.RoleId != 2 {
+	if user.RoleId != 1 {
 		c.AbortWithStatus(403)
 		return
 	}
@@ -51,21 +51,15 @@ func ReviewedArticle(c *gin.Context) {
 		c.AbortWithStatus(404)
 		return
 	}
-	var reviewed int
-	if data.Reviewed {
-		reviewed = 1
-	} else {
-		reviewed = -1
-	}
 	if err := db.Create(&Model.ReviewedRecord{
 		UserId:    user.ID,
 		ArticleId: uuid.FromStringOrNil(data.ArticleId),
-		Result:    data.Reviewed,
+		Result:    data.Reviewed > 0,
 		Reason:    data.Reason,
 	}).Error; err != nil {
 		panic(err)
 	}
-	if err := db.Model(&article).UpdateColumn("reviewed", reviewed).Error; err != nil {
+	if err := db.Model(&article).UpdateColumn("reviewed", data.Reviewed).Error; err != nil {
 		panic(err)
 	}
 }

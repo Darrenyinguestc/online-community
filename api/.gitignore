@@ -1,5 +1,5 @@
-/Public/apidoc
-/Public/images
+/public/apidoc
+/public/images
 env.toml
 apidoc.json
 /log/

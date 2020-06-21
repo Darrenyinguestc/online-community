@@ -81,7 +81,7 @@ func GetSelfList(c *gin.Context)  {
 		response = append(response, article.GetData("list"))
 	}
 	c.JSON(200, gin.H{
-		"data": response,
+		"articles": response,
 		"total": count,
 	})
 }

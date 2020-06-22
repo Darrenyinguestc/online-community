@@ -31,7 +31,7 @@ class VerifyCode extends React.Component {
         }).then(response => {
             message.success("Code has been sent to your email !");
         }).catch(error => {
-            message.error("There is something wrong !");
+            message.error("There is something wrong to email!");
         })
     }
 

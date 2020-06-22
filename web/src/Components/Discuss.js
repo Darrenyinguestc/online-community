@@ -1,18 +1,62 @@
 import "braft-editor/dist/index.css";
-import React from "react";
+import React, { useState, createElement } from "react";
 import BraftEditor from "braft-editor";
-import { Avatar, Button } from "antd";
+import { Avatar, Button, Tooltip, Comment } from "antd";
+import { LikeOutlined, LikeFilled, DislikeOutlined, DislikeFilled } from '@ant-design/icons'
 
-class Discuss extends React.Component {
+function Discuss() {
+  const [likes, setLikes] = useState(0);
+  const [dislikes, setDislikes] = useState(0);
+  const [action, setAction] = useState(null);
+  const [comments, setComments] = useState([]);
+  const [editor, setEditor] = useState(null);
 
+  const like = () => {
+    setLikes(1);
+    setDislikes(0);
+    setAction("liked");
+  };
 
+  const dislike = () => {
+    setLikes(0);
+    setDislikes(1);
+    setAction("disliked");
+  };
 
-  render() {
-    const controls = ["bold", "underline", "separator", "font-size", "italic"];
-    return (
+  const controls = ["bold", "underline", "separator", "font-size", "italic"];
+  const actions = [
+    <span key="comment-basic-like">
+      <Tooltip title="Like">
+        {createElement(action === "liked" ? LikeFilled : LikeOutlined , {
+          onClick: like,
+        })}
+      </Tooltip>
+      <span className="comment-action">{likes}</span>
+    </span>,
+    <span key="comment-basic-dislike">
+      <Tooltip title="Dislike">
+        {React.createElement(action === "disliked" ? DislikeFilled : DislikeOutlined, {
+          onClick: dislike,
+        })}
+      </Tooltip>
+      <span className="comment-action">{dislikes}</span>
+    </span>,
+    <span key="comment-basic-reply-to">Reply to</span>,
+  ];
+  return (
+    <div>
+      {comments.map((item) => (
+        <Comment
+          key={item.content}
+          actions={actions}
+          author={item.username}
+          avatar={<Avatar src={item.avatar}></Avatar>}
+          content={<p dangerouslySetInnerHTML={{ __html: item.content }}></p>}
+        ></Comment>
+      ))}
       <div style={{ display: "flex", direction: "row", marginTop: "30px" }}>
         <Avatar
-          src={ `http://localhost:8888/static/images/${window.auth.avatar}` }
+          src={`http://localhost:8888/static/images/${window.auth.avatar}`}
           style={{ margin: "20px" }}
         />
         <div style={{ flexGrow: 1, border: "solid" }}>
@@ -25,12 +69,27 @@ class Discuss extends React.Component {
               marginBottom: "20px",
             }}
             placeholder="快来分享你的想法吧"
+            onChange={(editor) => setEditor(editor)}
           />
-          <Button type="primary" >发表</Button>
+          <Button
+            type="primary"
+            onClick={() => {
+              setComments([
+                ...comments,
+                {
+                  avatar: window.auth.avatar,
+                  username: window.auth.username,
+                  content: editor.toHTML(),
+                },
+              ]);
+            }}
+          >
+            发表
+          </Button>
         </div>
       </div>
-    );
-  }
+    </div>
+  );
 }
 
 export default Discuss;

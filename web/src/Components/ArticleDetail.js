@@ -42,7 +42,7 @@ class ArticleDetail extends React.Component {
       reviewed,
     }
     server.post('/article/reviewed', params).then(() => {
-      message.success("审核完毕")
+      message.success("审核完毕", 100)
     })
   }
 
